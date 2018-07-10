@@ -35,12 +35,12 @@ mongoose.connect("mongodb://localhost/week18Populater");
 // A GET route for scraping the echoJS website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
-  axios.get("http://www.echojs.com/").then(function(response) {
+  request("https://www.nytimes.com/section/todayspaper", function(error, response, html) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
-    var $ = cheerio.load(response.data);
+    var $ = cheerio.load(html);
 
     // Now, we grab every h2 within an article tag, and do the following:
-    $("article h2").each(function(i, element) {
+    $("title").each(function(i, element) {
       // Save an empty result object
       var result = {};
 
